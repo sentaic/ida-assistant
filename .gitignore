@@ -1,0 +1,37 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# --- IDA Assistant project state ---
+# Never commit analysis state: database.json records absolute sample paths.
+.ida/
+*.i64
+*.idb
+*.id0
+*.id1
+*.id2
+*.nam
+*.til
+
+# --- Local configuration ---
+# .mcp.json.template is tracked; scripts/install.ps1 writes the resolved .mcp.json.
+.mcp.json
+.mcp.local.json
+config/*.local.json
+.env
+
+# --- Editors / OS ---
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini

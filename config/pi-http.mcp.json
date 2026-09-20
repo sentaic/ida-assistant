@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "ida": {
+      "url": "http://127.0.0.1:8741/mcp",
+      "lifecycle": "keep-alive",
+      "requestTimeoutMs": 300000,
+      "directTools": false
+    }
+  }
+}

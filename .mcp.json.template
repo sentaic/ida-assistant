@@ -1,0 +1,26 @@
+{
+  "mcpServers": {
+    "ida": {
+      "command": "${IDA_ASSISTANT_PYTHONW}",
+      "args": [
+        "${IDA_ASSISTANT_ROOT}\\scripts\\ida_lazy_mcp.py",
+        "--transport", "stdio",
+        "--agent", "codex-windows",
+        "--worker-command", "${IDA_ASSISTANT_PYTHON}",
+        "--ida-dir", "${IDA_ASSISTANT_IDA_DIR}",
+        "--pythonpath", "${IDA_ASSISTANT_IDA_MCP_PATH}",
+        "--max-sessions", "8",
+        "--max-workers", "3",
+        "--worker-idle-seconds", "60",
+        "--session-idle-seconds", "900",
+        "--startup-timeout", "270",
+        "--call-timeout", "270",
+        "--analysis-timeout", "0",
+        "--flush-timeout", "0",
+        "--drain-timeout", "900"
+      ],
+      "startup_timeout_sec": 30,
+      "disabled": false
+    }
+  }
+}

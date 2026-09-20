@@ -1,0 +1,36 @@
+[project]
+name = "ida-assistant"
+version = "1.0.0"
+description = "Project-scoped, lazy multi-session MCP scheduler for IDA Pro 9.1 idalib"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "sentaic", email = "290954907+sentaic@users.noreply.github.com" }]
+keywords = ["ida", "idalib", "reverse-engineering", "mcp", "mcp-server", "hexrays"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Security",
+    "Topic :: Software Development :: Disassemblers",
+]
+dependencies = ["mcp>=1.27,<2"]
+
+[project.scripts]
+ida-assistant = "ida_assistant.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/sentaic/ida-assistant"
+Repository = "https://github.com/sentaic/ida-assistant"
+Issues = "https://github.com/sentaic/ida-assistant/issues"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

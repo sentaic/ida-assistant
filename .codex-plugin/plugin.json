@@ -1,0 +1,27 @@
+{
+  "name": "ida-assistant",
+  "version": "1.0.0",
+  "description": "Project-scoped, lazy multi-agent MCP scheduler for IDA Pro 9.1.",
+  "author": {
+    "name": "ida-assistant contributors"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "IDA Assistant",
+    "shortDescription": "Analyze project binaries with short, isolated IDA sessions.",
+    "longDescription": "IDA Assistant keeps analysis state under each project's .ida directory. Different binaries run in isolated workers, while each MCP connection uses a short active-session workflow and existing paths are reused automatically.",
+    "developerName": "ida-assistant contributors",
+    "category": "Engineering",
+    "capabilities": [
+      "Read",
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Open this sample in IDA and summarize key functions.",
+      "Find string xrefs and decompile the callers.",
+      "Map imports, functions, and suspicious paths."
+    ]
+  },
+  "mcpServers": "./.mcp.json"
+}

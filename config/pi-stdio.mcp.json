@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "ida": {
+      "command": "/bin/sh",
+      "args": [
+        "-lc",
+        "project_root=\"$(wslpath -w -- \"$PWD\")\" || exit; exec '${IDA_ASSISTANT_PYTHONW}' '${IDA_ASSISTANT_ROOT}\\scripts\\ida_lazy_mcp.py' --transport stdio --agent pi-wsl2 --project-root \"$project_root\" --worker-command '${IDA_ASSISTANT_PYTHON}' --ida-dir '${IDA_ASSISTANT_IDA_DIR}' --pythonpath '${IDA_ASSISTANT_IDA_MCP_PATH}' --max-sessions 8 --max-workers 3 --worker-idle-seconds 60 --session-idle-seconds 900 --startup-timeout 270 --call-timeout 270 --analysis-timeout 0 --flush-timeout 0 --drain-timeout 900"
+      ],
+      "lifecycle": "keep-alive",
+      "requestTimeoutMs": 300000,
+      "directTools": false
+    }
+  }
+}
