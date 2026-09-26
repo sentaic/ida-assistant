@@ -39,7 +39,9 @@ IDA Assistant separates *analysis* from *asking questions*:
 
 The project root must live on a Windows filesystem. From WSL, use a path like
 `/mnt/c/...`; `/home/...` becomes `\\wsl.localhost\...`, whose locking semantics do not
-satisfy the plugin, and the scheduler refuses to start and tells you why.
+satisfy the plugin. The scheduler still starts normally and only rejects with
+`WSL_LINUX_FILESYSTEM_UNSUPPORTED` when analysis actually begins (`open` or another
+operation that needs `.ida` state).
 
 > This plugin contains and distributes no Hex-Rays or IDA code.
 

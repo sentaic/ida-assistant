@@ -124,6 +124,7 @@ class SessionPool:
         wait_for_analysis: bool | None = None,
         reset_if_changed: bool = False,
     ) -> dict[str, Any]:
+        self.settings.ensure_supported_project_root()
         source = self._resolve_source(path)
         fingerprint = quick_fingerprint(source)
         changed = False
@@ -484,6 +485,7 @@ class SessionPool:
             "transport": self.settings.transport,
             "project_root": str(self.settings.project_root),
             "state_dir": str(self.settings.state_dir),
+            "project_root_unsupported": self.settings.project_root_unsupported,
             "limits": {
                 "sessions": self.settings.max_sessions,
                 "workers": self.settings.max_workers,
@@ -863,6 +865,7 @@ class SessionPool:
             guard.release()
 
     async def _runtime(self, analysis: Analysis, owner: str) -> RuntimeSession:
+        self.settings.ensure_supported_project_root()
         async with self._pool_lock:
             record = self._sessions.get(analysis.session)
             if record is not None:

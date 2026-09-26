@@ -123,16 +123,25 @@ class Settings:
         settings.validate()
         return settings
 
+    @property
+    def project_root_unsupported(self) -> bool:
+        """True when the project root resolves to a WSL Linux filesystem path."""
+        return _is_wsl_linux_filesystem(self.project_root)
+
+    def ensure_supported_project_root(self) -> None:
+        """Reject WSL-backed project roots when analysis is requested, not at startup."""
+        if not self.project_root_unsupported:
+            return
+        raise ValueError(
+            "WSL_LINUX_FILESYSTEM_UNSUPPORTED: --project-root resolves to the WSL "
+            f"Linux filesystem ({self.project_root}). IDA Assistant runs as a Windows "
+            "process and its project .ida state requires Windows byte-range locking, "
+            "which WSL Linux filesystem UNC paths do not provide. Open or move the "
+            "project to a Windows-backed path such as /mnt/c/... or /mnt/d/... and retry."
+        )
+
     def validate(self) -> None:
-        if _is_wsl_linux_filesystem(self.project_root):
-            raise ValueError(
-                "WSL_LINUX_FILESYSTEM_UNSUPPORTED: --project-root resolves to the WSL "
-                f"Linux filesystem ({self.project_root}). IDA Assistant runs as a Windows "
-                "process and its project .ida state requires Windows byte-range locking, "
-                "which WSL Linux filesystem UNC paths do not provide. Open or move the "
-                "project to a Windows-backed path such as /mnt/c/... or /mnt/d/... and retry."
-            )
-        if not self.project_root.is_dir():
+        if not self.project_root_unsupported and not self.project_root.is_dir():
             raise ValueError(f"--project-root is not a directory: {self.project_root}")
         if self.max_sessions < 1 or self.max_workers < 1:
             raise ValueError("--max-sessions and --max-workers must be positive")

@@ -35,7 +35,8 @@ IDA Assistant 把「分析」和「提问」拆开：
 | 上游依赖 | [`ida-pro-mcp`](https://github.com/mrexodia/ida-pro-mcp)，提供 `ida_pro_mcp` 与 idalib 入口 |
 
 项目根目录必须在 Windows 文件系统上。从 WSL 里用时要走 `/mnt/c/...` 这类路径；`/home/...`
-会被转成 `\\wsl.localhost\...`，那里的锁语义不满足要求，scheduler 会直接拒绝启动并告诉你原因。
+会被转成 `\\wsl.localhost\...`，那里的锁语义不满足要求。scheduler 仍会正常启动，只有在真正
+开始分析（`open` 或其它需要 `.ida` 状态的操作）时才以 `WSL_LINUX_FILESYSTEM_UNSUPPORTED` 拒绝。
 
 > 本插件不包含、也不分发任何 Hex-Rays 或 IDA 代码。
 
