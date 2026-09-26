@@ -38,7 +38,7 @@ if (-not (Test-Path $Python)) {
     throw "Python interpreter not found: $Python`nInstall the dependency first: uv tool install ida-pro-mcp"
 }
 
-if (-not $IdaDir) { $IdaDir = "C:\Program Files\IDA Professional 9.1" }
+if (-not $IdaDir) { $IdaDir = "C:\Program Files\IDA Professional 9.4" }
 if (-not (Test-Path $IdaDir)) {
     throw "IDA directory not found: $IdaDir`nPass -IdaDir or set IDA_ASSISTANT_IDA_DIR."
 }

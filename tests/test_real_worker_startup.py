@@ -1,4 +1,4 @@
-"""Optional smoke test: imports IDA 9.1 idalib but does not open or modify a database."""
+"""Optional smoke test: imports IDA 9.4 idalib but does not open or modify a database."""
 
 from __future__ import annotations
 
@@ -19,12 +19,12 @@ from ida_assistant.errors import ToolFailed, WorkerFailed
 from ida_assistant.fingerprint import quick_fingerprint
 from ida_assistant.worker_client import WorkerActor
 
-# These smoke tests need a real IDA 9.1 installation plus the `ida-pro-mcp`
+# These smoke tests need a real IDA 9.4 installation plus the `ida-pro-mcp`
 # package that provides `ida_pro_mcp`. Override the defaults with these
 # environment variables instead of editing the file:
 #   IDA_ASSISTANT_IDA_DIR        IDA installation directory
 #   IDA_ASSISTANT_IDA_MCP_PATH   site-packages directory of the ida-pro-mcp tool
-IDA_DIR = os.environ.get("IDA_ASSISTANT_IDA_DIR", r"C:\Program Files\IDA Professional 9.1")
+IDA_DIR = os.environ.get("IDA_ASSISTANT_IDA_DIR", r"C:\Program Files\IDA Professional 9.4")
 IDA_MCP_PATH = os.environ.get(
     "IDA_ASSISTANT_IDA_MCP_PATH",
     os.path.join(

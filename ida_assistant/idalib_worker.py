@@ -57,6 +57,9 @@ DATABASE_DIR.mkdir(parents=True, exist_ok=True)
 Path(ARGS.pid_file).write_text(str(os.getpid()), encoding="ascii")
 Path(ARGS.ida_user_dir).mkdir(parents=True, exist_ok=True)
 os.environ["IDAUSR"] = str(Path(ARGS.ida_user_dir).resolve())
+# idalib >= 9.4 resolves the install directory from $IDADIR before consulting
+# $IDAUSR/ida-config.json, and creates that file with a stdout message otherwise.
+os.environ["IDADIR"] = str(Path(ARGS.ida_dir).resolve())
 
 for value in reversed(ARGS.pythonpath):
     sys.path.insert(0, str(Path(value).resolve()))
@@ -158,7 +161,7 @@ try:
         from ida_pro_mcp import idalib_server
     except ModuleNotFoundError as exc:
         raise RuntimeError(
-            f"cannot load IDA 9.1 idalib from {ARGS.idalib_python}; "
+            f"cannot load IDA idalib from {ARGS.idalib_python}; "
             "pass all Windows paths with scheduler CLI arguments"
         ) from exc
     finally:
@@ -611,6 +614,21 @@ async def ida_python_exec(
 UPSTREAM_PLUGIN = importlib.import_module(ARGS.plugin_module)
 
 
+def _force_headless_window_state() -> None:
+    """idalib workers never own a GUI window.
+
+    Upstream ``is_window_active()`` imports PyQt5 and only catches ImportError.
+    IDA 9.1 shipped real PyQt5, but IDA 9.4 replaces it with a PySide6 shim that
+    raises NotImplementedError outside the GUI build, which escapes that guard and
+    breaks every tool that calls it (decompilation, disassembly).
+    """
+    if hasattr(UPSTREAM_PLUGIN, "is_window_active"):
+        UPSTREAM_PLUGIN.is_window_active = lambda: False
+
+
+_force_headless_window_state()
+
+
 @mcp.tool()
 async def ida_action_catalog(plane: str = "read", filter: str = "") -> list[dict[str, Any]]:
     """Describe long-tail upstream actions available through query or edit."""
@@ -668,7 +686,7 @@ def _register_upstream() -> None:
         if name in reserved:
             continue
         if ARGS.unsafe or name not in UPSTREAM_PLUGIN.rpc_registry.unsafe:
-            # FastMCP executes synchronous functions in a thread pool. idalib 9.1
+            # FastMCP executes synchronous functions in a thread pool. idalib
             # requires every API call on the thread that initialized the library,
             # so an async wrapper deliberately executes the function inline on the
             # worker's event-loop/main thread. functools.wraps preserves its schema.

@@ -60,7 +60,7 @@ class Settings:
             "--worker-script",
             default=str(Path(__file__).with_name("idalib_worker.py")),
         )
-        parser.add_argument("--ida-dir", default=r"C:\Program Files\IDA Professional 9.1")
+        parser.add_argument("--ida-dir", default=r"C:\Program Files\IDA Professional 9.4")
         parser.add_argument("--idalib-python")
         parser.add_argument("--pythonpath", action="append", default=[])
         parser.add_argument("--max-sessions", type=int, default=8)

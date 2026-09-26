@@ -33,7 +33,7 @@ IDA Assistant separates *analysis* from *asking questions*:
 | Item | Requirement |
 | --- | --- |
 | OS | Windows (both idalib and the byte-range locking depend on it) |
-| IDA | IDA Professional **9.1**, with `idalib` included |
+| IDA | IDA Professional **9.4**, with `idalib` included |
 | Python | 3.11 or newer |
 | Upstream | [`ida-pro-mcp`](https://github.com/mrexodia/ida-pro-mcp), which provides `ida_pro_mcp` and the idalib entry point |
 
@@ -62,7 +62,7 @@ with environment variables:
 | Variable | Meaning |
 | --- | --- |
 | `IDA_ASSISTANT_PYTHON` | The `python.exe` that has `ida-pro-mcp` installed (also used to derive `pythonw.exe` and `site-packages`) |
-| `IDA_ASSISTANT_IDA_DIR` | IDA installation directory, default `C:\Program Files\IDA Professional 9.1` |
+| `IDA_ASSISTANT_IDA_DIR` | IDA installation directory, default `C:\Program Files\IDA Professional 9.4` |
 
 The generated `.mcp.json` is a local file and is not tracked: **only the template is in the
 repository, so personal paths never enter git history.**
@@ -84,7 +84,7 @@ command/args:
         "--transport", "stdio",
         "--agent", "my-agent",
         "--worker-command", "<path to python.exe>",
-        "--ida-dir", "C:\\Program Files\\IDA Professional 9.1",
+        "--ida-dir", "C:\\Program Files\\IDA Professional 9.4",
         "--pythonpath", "<ida-pro-mcp site-packages>"
       ]
     }
@@ -258,7 +258,7 @@ scheduler restarts, abort, and worker recovery. The real IDA tests skip automati
 the installation is missing:
 
 ```powershell
-$env:IDA_ASSISTANT_IDA_DIR = "C:\Program Files\IDA Professional 9.1"
+$env:IDA_ASSISTANT_IDA_DIR = "C:\Program Files\IDA Professional 9.4"
 $env:IDA_ASSISTANT_IDA_MCP_PATH = "$env:APPDATA\uv\tools\ida-pro-mcp\Lib\site-packages"
 uv run python -m unittest discover -s tests -v
 ```

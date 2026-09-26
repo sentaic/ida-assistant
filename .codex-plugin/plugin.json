@@ -1,7 +1,7 @@
 {
   "name": "ida-assistant",
   "version": "1.0.0",
-  "description": "Project-scoped, lazy multi-agent MCP scheduler for IDA Pro 9.1.",
+  "description": "Project-scoped, lazy multi-agent MCP scheduler for IDA Pro 9.4.",
   "author": {
     "name": "ida-assistant contributors"
   },

@@ -11,7 +11,7 @@
 
 .PARAMETER IdaDir
     IDA Professional installation directory. Defaults to IDA_ASSISTANT_IDA_DIR
-    or "C:\Program Files\IDA Professional 9.1".
+    or "C:\Program Files\IDA Professional 9.4".
 
 .PARAMETER Force
     Overwrite an existing .mcp.json.
@@ -47,7 +47,7 @@ $pythonw = Join-Path (Split-Path -Parent $python) "pythonw.exe"
 if (-not (Test-Path $pythonw)) { $pythonw = $python }
 
 if (-not $IdaDir) { $IdaDir = $env:IDA_ASSISTANT_IDA_DIR }
-if (-not $IdaDir) { $IdaDir = "C:\Program Files\IDA Professional 9.1" }
+if (-not $IdaDir) { $IdaDir = "C:\Program Files\IDA Professional 9.4" }
 if (-not (Test-Path $IdaDir)) {
     throw "IDA directory not found: $IdaDir`nPass -IdaDir or set IDA_ASSISTANT_IDA_DIR."
 }

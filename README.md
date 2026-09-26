@@ -30,7 +30,7 @@ IDA Assistant 把「分析」和「提问」拆开：
 | 项目 | 要求 |
 | --- | --- |
 | 操作系统 | Windows（idalib 与字节范围锁都依赖 Windows） |
-| IDA | IDA Professional **9.1**，需要含 `idalib` |
+| IDA | IDA Professional **9.4**，需要含 `idalib` |
 | Python | 3.11 或更高 |
 | 上游依赖 | [`ida-pro-mcp`](https://github.com/mrexodia/ida-pro-mcp)，提供 `ida_pro_mcp` 与 idalib 入口 |
 
@@ -56,7 +56,7 @@ pwsh -File scripts/install.ps1
 | 变量 | 含义 |
 | --- | --- |
 | `IDA_ASSISTANT_PYTHON` | 装有 `ida-pro-mcp` 的 `python.exe`（据此推导 `pythonw.exe` 与 `site-packages`） |
-| `IDA_ASSISTANT_IDA_DIR` | IDA 安装目录，默认 `C:\Program Files\IDA Professional 9.1` |
+| `IDA_ASSISTANT_IDA_DIR` | IDA 安装目录，默认 `C:\Program Files\IDA Professional 9.4` |
 
 生成的 `.mcp.json` 是本地文件，不进版本库：**仓库里只有模板，所以个人路径不会进 git 历史。**
 
@@ -76,7 +76,7 @@ pwsh -File scripts/install.ps1
         "--transport", "stdio",
         "--agent", "my-agent",
         "--worker-command", "<python.exe 路径>",
-        "--ida-dir", "C:\\Program Files\\IDA Professional 9.1",
+        "--ida-dir", "C:\\Program Files\\IDA Professional 9.4",
         "--pythonpath", "<ida-pro-mcp 的 site-packages>"
       ]
     }
@@ -240,7 +240,7 @@ uv run --with ruff ruff check ida_assistant tests
 worker 恢复）。真实 IDA 测试会在缺少安装时自动 skip：
 
 ```powershell
-$env:IDA_ASSISTANT_IDA_DIR = "C:\Program Files\IDA Professional 9.1"
+$env:IDA_ASSISTANT_IDA_DIR = "C:\Program Files\IDA Professional 9.4"
 $env:IDA_ASSISTANT_IDA_MCP_PATH = "$env:APPDATA\uv\tools\ida-pro-mcp\Lib\site-packages"
 uv run python -m unittest discover -s tests -v
 ```

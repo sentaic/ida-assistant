@@ -98,7 +98,7 @@ Job Object，设置 `KILL_ON_JOB_CLOSE` 并把自身及 IDA 子孙纳入其中�
 命名 Job Object；PID 只作诊断，绝不单独作为杀进程依据。
 
 不同 session 的分析/查询可并行；同一 session 的查询串行。worker 冷启动短暂串行化，
-规避 IDA 9.1 同时初始化多个 idalib 实例可能挂起的问题。stdio 断开时交互 worker 会退出，
+规避 idalib 同时初始化多个实例可能挂起的问题。stdio 断开时交互 worker 会退出，
 持久分析 runner 不退出。
 
 ## 超时
@@ -129,7 +129,7 @@ abort/force-stop 同样拒绝执行。宿主强行终止整个进程树或系统
 `close_database(False)`，因此 60 秒 worker 空闲回收不再反复重写大 IDB。
 
 保存先写同目录唯一 `.save-<id>.i64`，成功关闭并刷新后原子替换正式库；失败保留旧库及
-恢复候选。IDA 9.1 的 `DBFL_COMP` 是垃圾整理标志。磁盘需容纳旧库、候选库和 IDA 展开
+恢复候选。IDA 9.4 的 `DBFL_COMP` 是垃圾整理标志。磁盘需容纳旧库、候选库和 IDA 展开
 文件；该操作可能很慢，不能用退出进程的 10 秒预算限制它。
 
 新发布和正常编辑保存后记录 IDB 的 size、mtime_ns 与抽样指纹。再次开库前在 session
@@ -209,7 +209,7 @@ python scripts/ida_lazy_mcp.py
   --agent NAME
   --project-root WINDOWS_PATH
   --worker-command WINDOWS_PYTHON_EXE
-  --ida-dir "C:\Program Files\IDA Professional 9.1"
+  --ida-dir "C:\Program Files\IDA Professional 9.4"
   --pythonpath IDA_PRO_MCP_SITE_PACKAGES
   --max-sessions 8 --max-workers 3
   --worker-idle-seconds 60 --session-idle-seconds 900
@@ -240,7 +240,7 @@ uv run --with ruff ruff check ida_assistant tests
 
 fake 测试覆盖完整后台分析、ready 门禁、原子发布、scheduler 重启、job-id abort/retry、旧
 IDB 兼容与交互 worker 恢复，不需要 IDA 即可运行。真实测试使用 Windows `where.exe`，验证
-stdio scheduler 的非阻塞 open、完整分析后查询以及 IDA 9.1 的实际 idalib 能力；缺少 IDA
+stdio scheduler 的非阻塞 open、完整分析后查询以及 IDA 9.4 的实际 idalib 能力；缺少 IDA
 或上游依赖时会自动 skip，也可用 `IDA_ASSISTANT_IDA_DIR` 与 `IDA_ASSISTANT_IDA_MCP_PATH`
 指向本机安装。
 
@@ -248,7 +248,7 @@ stdio scheduler 的非阻塞 open、完整分析后查询以及 IDA 9.1 的实�
 
 | 组件 | 验证版本 |
 | --- | --- |
-| IDA Professional | 9.1 |
+| IDA Professional | 9.4 |
 | `ida-pro-mcp` | 1.4.0 |
 | `mcp` | 1.27 – 1.29 |
 

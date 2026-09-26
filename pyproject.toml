@@ -1,7 +1,7 @@
 [project]
 name = "ida-assistant"
 version = "1.0.0"
-description = "Project-scoped, lazy multi-session MCP scheduler for IDA Pro 9.1 idalib"
+description = "Project-scoped, lazy multi-session MCP scheduler for IDA Pro 9.4 idalib"
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"

@@ -1,6 +1,6 @@
 ---
 name: ida-assistant
-description: Reverse engineer binaries or IDBs with the project-scoped IDA Pro 9.1 MCP service, including persistent full autoanalysis, decompilation, xrefs, searches, controlled edits, debugging, and IDAPython.
+description: Reverse engineer binaries or IDBs with the project-scoped IDA Pro 9.4 MCP service, including persistent full autoanalysis, decompilation, xrefs, searches, controlled edits, debugging, and IDAPython.
 ---
 
 # IDA Assistant
@@ -82,7 +82,7 @@ side effects are uncertain.
 Use separate MCP connections for separate logical agents. Partition different binaries across
 sessions; project-wide slot locks bound concurrent detached analyses across Codex, pi, and multiple
 schedulers. Calls to one ready IDB serialize, and query workers share the IDB lock with analysis
-jobs. Worker cold starts are briefly serialized because concurrent IDA 9.1 idalib initialization
+jobs. Worker cold starts are briefly serialized because concurrent idalib initialization
 can hang.
 
 `ida/close()` stops the interactive query worker but never the detached analysis job. Scheduler
